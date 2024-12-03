@@ -18,7 +18,17 @@ app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(shopRoutes)
+app.use(errorsController.get500)
 app.use(errorsController.get404)
+
+app.use((error, req, res, next) => {
+    res.redirect('/500');
+    // res.status(500).render('500', {
+    //     pageTitle: 'Error!',
+    //     path: '/500',
+    //     isAuthenticated: req.session.isLoggedIn
+    // });
+});
 
 mongoose.connect(MONGODB_URI)
     .then(() => app.listen(8000))

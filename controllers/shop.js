@@ -61,7 +61,7 @@ exports.deleteProduct = (req, res, next) => {
         })
 }
 
-exports.editProduct = (req, res, next) => {
+exports.getEditProduct = (req, res, next) => {
     const productId = req.params.productId
 
     Product.findById(productId)
@@ -69,11 +69,36 @@ exports.editProduct = (req, res, next) => {
             if (!product) {
                 throw new Error()
             }
-            res.render("productDetails", {
-                pageTitle: "Details",
+            res.render("editProduct", {
+                pageTitle: "Edit Product",
                 path: "",
                 product
             })
+        })
+        .catch(() => {
+            throw new Error()
+        })
+}
+
+exports.postEditProduct = (req, res, next) => {
+    const productId = req.params.productId
+    const { title, imageUrl, price, description } = req.body;
+
+    Product.findById(productId)
+        .then(product => {
+            if (!product) {
+                throw new Error()
+            }
+            product.title = title;
+            product.imageUrl = imageUrl;
+            product.price = price;
+            product.description = description;
+
+            product.save()
+                .then(() => res.redirect("/"))
+                .catch(() => {
+                    throw new Error()
+                })
         })
         .catch(() => {
             throw new Error()

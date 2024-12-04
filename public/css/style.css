@@ -1,4 +1,4 @@
-.add-product-form {
+.product-form {
     max-width: 450px;
 }
 
@@ -21,7 +21,8 @@
     cursor: pointer;
 }
 
-a {
+.product-card a {
     text-decoration: none;
     color: #212529;
+    height: 100%;
 }

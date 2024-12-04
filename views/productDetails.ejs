@@ -1,0 +1,12 @@
+<%-include ("./common/header.ejs") %>
+
+<div class="card product-card mx-auto">
+  <img src="<%=product.imageUrl%>" class="card-img-top p-3" alt="<%=product.title%>">
+  <h5 class="text-center my-1"><%=product.title%></h5>
+  <h6 class="text-center my-1"><%=product.price%>$</h6>
+  <div class="card-body">
+    <p class="card-text"><%=product.description%></p>
+  </div>
+</div>
+
+<%-include ("./common/footer.ejs") %>

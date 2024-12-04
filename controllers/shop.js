@@ -31,3 +31,22 @@ exports.postAddProduct = (req, res, next) => {
             throw new Error()
         })
 }
+
+exports.getProduct = (req, res, next) => {
+    const productId = req.params.productId
+
+    Product.findById(productId)
+        .then(product => {
+            if (!product) {
+                throw new Error()
+            }
+            res.render("productDetails", {
+                pageTitle: "Details",
+                path: "",
+                product
+            })
+        })
+        .catch(() => {
+            throw new Error()
+        })
+}

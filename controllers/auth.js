@@ -1,17 +1,20 @@
-const Product = require("../models/product")
+const User = require("../models/user")
 
 exports.postLogout = (req, res, next) => {
 
 }
 
 exports.postSignUp = (req, res, next) => {
-    const { email, password, confirmation } = req.body;
+    const { email, password } = req.body;
+    // TODO hash user's password
+    const newUser = new User({ email, password })
 
-    console.log(email, password, confirmation)
-    // res.render("login", {
-    //     pageTitle: "Login",
-    //     path: "login"
-    // })
+    // TODO check if user exists
+    newUser.save()
+        .then(() => res.redirect("/"))
+        .catch(() => {
+            throw new Error()
+        })
 }
 
 exports.getSignUp = (req, res, next) => {

@@ -1,10 +1,17 @@
 const Product = require("../models/product")
 
 exports.getProducts = (req, res, next) => {
-    res.render("shop", {
-        pageTitle: "Main page",
-        path: "/"
-    })
+    Product.find()
+        .then(products => {
+            res.render("shop", {
+                pageTitle: "Main page",
+                path: "/",
+                products
+            })
+        })
+        .catch(() => {
+            throw new Error()
+        })
 }
 
 exports.getAddProduct = (req, res, next) => {

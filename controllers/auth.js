@@ -2,7 +2,9 @@ const User = require("../models/user")
 const bcryptjs = require("bcryptjs")
 
 exports.postLogout = (req, res, next) => {
-
+    req.session.destroy(err => {
+        res.redirect("/");
+    });
 }
 
 exports.postSignUp = (req, res, next) => {
@@ -40,7 +42,10 @@ exports.postLogin = (req, res, next) => {
             bcryptjs.compare(password, user.password)
                 .then(doMatch => {
                     if (doMatch) {
-                        return res.redirect("/")
+                        req.session.isLoggedIn = true;
+                        return req.session.save(err => {
+                            res.redirect("/");
+                        });
                     }
                     return res.redirect("/login")
                 })

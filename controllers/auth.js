@@ -9,15 +9,23 @@ exports.postLogout = (req, res, next) => {
 
 exports.postSignUp = (req, res, next) => {
     const { email, password } = req.body;
-    // TODO check if user exists
 
-    bcryptjs
-        .hash(password, 12)
-        .then(hashedPassword => {
-            const newUser = new User({ email, password: hashedPassword })
+    User.findOne({ email })
+        .then(user => {
+            if (user) {
+                return res.redirect("/sign-up")
+            }
+            return bcryptjs
+                .hash(password, 12)
+                .then(hashedPassword => {
+                    const newUser = new User({ email, password: hashedPassword })
 
-            newUser.save()
-                .then(() => res.redirect("/login"))
+                    newUser.save()
+                        .then(() => res.redirect("/login"))
+                        .catch(() => {
+                            throw new Error()
+                        })
+                })
                 .catch(() => {
                     throw new Error()
                 })
@@ -25,6 +33,7 @@ exports.postSignUp = (req, res, next) => {
         .catch(() => {
             throw new Error()
         })
+
 }
 
 exports.getSignUp = (req, res, next) => {
@@ -39,6 +48,9 @@ exports.postLogin = (req, res, next) => {
 
     User.findOne({ email })
         .then(user => {
+            if (!user) {
+                return res.redirect("/login");
+            }
             bcryptjs.compare(password, user.password)
                 .then(doMatch => {
                     if (doMatch) {

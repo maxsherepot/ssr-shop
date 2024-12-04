@@ -6,13 +6,27 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item mx-2 fs-5">
-          <a class="nav-link <%=path === '/' ? 'active' : ''%>" aria-current="page" href="/">Main</a>
-        </li>
-        <li class="nav-item mx-2 fs-5">
-          <a class="nav-link <%=path === 'add-product' ? 'active' : ''%>" aria-current="page" href="/add-product">Add product</a>
-        </li>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-between w-100">
+        <div class="d-flex">
+          <li class="nav-item mx-2 fs-5">
+            <a class="nav-link <%=path === '/' ? 'active' : ''%>" aria-current="page" href="/">Main</a>
+          </li>
+          <li class="nav-item mx-2 fs-5">
+            <a class="nav-link <%=path === 'add-product' ? 'active' : ''%>" aria-current="page" href="/add-product">Add product</a>
+          </li>
+        </div>
+
+        <div class="d-flex">
+          <li class="nav-item mx-2 fs-5">
+            <a class="nav-link <%=path === 'login' ? 'active' : ''%>" aria-current="page" href="/login">Login</a>
+          </li>
+          <li class="nav-item mx-2 fs-5">
+            <a class="nav-link <%=path === 'sign-up' ? 'active' : ''%>" aria-current="page" href="/sign-up">Sign up</a>
+          </li>
+          <li class="nav-item mx-2 fs-5">
+            <a class="nav-link text-warning <%=path === 'logout' ? 'active' : ''%>" aria-current="page" href="/logout">Logout</a>
+          </li>
+        </div>
       </ul>
     </div>
   </div>

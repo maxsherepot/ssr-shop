@@ -29,7 +29,7 @@ exports.postLogin = (req, res, next) => {
 }
 
 exports.getLogin = (req, res, next) => {
-    res.render("login", {
+    res.render("auth/login", {
         pageTitle: "Login",
         path: "login"
     })

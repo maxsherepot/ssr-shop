@@ -50,3 +50,32 @@ exports.getProduct = (req, res, next) => {
             throw new Error()
         })
 }
+
+exports.deleteProduct = (req, res, next) => {
+    const productId = req.params.productId
+
+    Product.findByIdAndDelete(productId)
+        .then(() => res.redirect("/"))
+        .catch(() => {
+            throw new Error()
+        })
+}
+
+exports.editProduct = (req, res, next) => {
+    const productId = req.params.productId
+
+    Product.findById(productId)
+        .then(product => {
+            if (!product) {
+                throw new Error()
+            }
+            res.render("productDetails", {
+                pageTitle: "Details",
+                path: "",
+                product
+            })
+        })
+        .catch(() => {
+            throw new Error()
+        })
+}
